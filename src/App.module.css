@@ -1,0 +1,20 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  margin: 0 5rem;
+  padding: 20px 0;
+  min-height: 100vh;
+}
+
+.header_title {
+  text-align: center;
+}
+
+.app__main {
+  display: flex;
+  justify-content: space-around;
+
+  flex: 1 1 auto;
+}
