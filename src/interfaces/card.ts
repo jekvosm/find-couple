@@ -4,3 +4,9 @@ export interface ICard {
   isRotated: boolean
   isFound: boolean
 }
+
+export interface ITime {
+  seconds: number
+  minutes: number
+  reset: boolean
+}

@@ -2,14 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import { GameContext, GameContextState } from '../../context/game-context'
 
 const Timer = () => {
-  const { isPlaying } = useContext(GameContext) as GameContextState
+  const { isPlaying, time, changeResetTime } = useContext(
+    GameContext
+  ) as GameContextState
 
-  const [seconds, setSeconds] = useState(0)
-  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(time.seconds)
+  const [minutes, setMinutes] = useState(time.minutes)
 
   useEffect(() => {
     let interval: number | undefined
     if (isPlaying) {
+      changeResetTime()
       interval = setInterval(() => {
         setSeconds(seconds => {
           if (seconds < 59) {
@@ -30,6 +33,11 @@ const Timer = () => {
       setTimeout(() => setMinutes(minutes => minutes + 1), 1000)
     }
   }, [seconds])
+
+  useEffect(() => {
+    setSeconds(0)
+    setMinutes(0)
+  }, [time.reset])
 
   return (
     <p>

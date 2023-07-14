@@ -31,7 +31,3 @@ export const changeFoundStatus = (
       : card
   )
 }
-
-export const rotateCardsBack = (cards: ICard[]): ICard[] => {
-  return cards.map(card => ({ ...card, isRotated: false }))
-}
