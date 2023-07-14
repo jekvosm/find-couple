@@ -5,8 +5,9 @@ export interface ICard {
   isFound: boolean
 }
 
-export interface ITime {
+export interface IResult {
+  id: string
   seconds: number
   minutes: number
-  reset: boolean
+  totalOfMoves: number
 }

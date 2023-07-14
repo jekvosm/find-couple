@@ -6,13 +6,13 @@ import styles from './current-game.module.css'
 import Timer from '../timer/timer.component'
 
 const CurrentGame = () => {
-  const { totalOfmoves } = useContext(GameContext) as GameContextState
+  const { totalOfMoves } = useContext(GameContext) as GameContextState
 
   return (
     <div className={styles.current_game}>
       <Timer />
       <p>
-        Количество ходов: <span>{totalOfmoves}</span>
+        Число ходов: <span>{totalOfMoves}</span>
       </p>
     </div>
   )

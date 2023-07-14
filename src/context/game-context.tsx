@@ -2,17 +2,18 @@ import { createContext, useEffect, useState } from 'react'
 
 import { CARDS } from '../db'
 
-import { ICard, ITime } from '../interfaces/card'
+import { ICard, IResult } from '../interfaces/card'
 import { changeFoundStatus, createRandomCards } from '../utils/utils'
 
 export type GameContextState = {
   randomCards: ICard[]
   selectedCards: ICard[]
-  totalOfmoves: number
+  totalOfMoves: number
   isPlaying: boolean
   totalFoundCoupleCard: number
   isFinished: boolean
-  time: ITime
+  isTimeReset: boolean
+  results: IResult[]
   setRandomCards: (cards: ICard[]) => void
   setSelectedCards: (cards: ICard[]) => void
   changeFoundStatusCards: (cards: ICard[], cardsForChange: ICard[]) => void
@@ -22,6 +23,7 @@ export type GameContextState = {
   stopGame: () => void
   restartGame: () => void
   changeResetTime: () => void
+  addToResults: (result: IResult) => void
 }
 
 export const GameContext = createContext<GameContextState | null>(null)
@@ -33,15 +35,12 @@ export const GameProvider = ({
 }) => {
   const [randomCards, setRandomCards] = useState<ICard[]>([])
   const [selectedCards, setSelectedCards] = useState<ICard[]>([])
-  const [totalOfmoves, setCount] = useState(0)
+  const [totalOfMoves, setCount] = useState(0)
   const [isPlaying, setIsPlayng] = useState(false)
   const [totalFoundCoupleCard, setTotalFoundCoupleCard] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
-  const [time, setTime] = useState<ITime>({
-    seconds: 0,
-    minutes: 0,
-    reset: false,
-  })
+  const [isTimeReset, setIsTimeReset] = useState(false)
+  const [results, setResults] = useState<IResult[]>([])
 
   useEffect(() => {
     const cards = createRandomCards(CARDS)
@@ -81,11 +80,17 @@ export const GameProvider = ({
     setTotalFoundCoupleCard(0)
     setSelectedCards([])
     setCount(0)
-    setTime({ seconds: 0, minutes: 0, reset: true })
+    setIsTimeReset(true)
   }
 
   const changeResetTime = () => {
-    setTime({ ...time, reset: false })
+    setIsTimeReset(false)
+  }
+
+  const addToResults = (result: IResult) => {
+    const newResults = [...results, result]
+    if (newResults.length > 5) newResults.shift()
+    setResults(newResults)
   }
 
   const value = {
@@ -95,7 +100,7 @@ export const GameProvider = ({
     setSelectedCards,
     changeFoundStatusCards,
     rotateCardsBack,
-    totalOfmoves,
+    totalOfMoves,
     increaseTotalOfMoves,
     isPlaying,
     startGame,
@@ -103,8 +108,10 @@ export const GameProvider = ({
     totalFoundCoupleCard,
     isFinished,
     restartGame,
-    time,
+    isTimeReset,
     changeResetTime,
+    results,
+    addToResults,
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>
