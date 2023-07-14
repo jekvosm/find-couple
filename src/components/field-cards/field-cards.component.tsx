@@ -13,10 +13,13 @@ const FieldCards = () => {
     setSelectedCards,
     changeFoundStatusCards,
     rotateCardsBack,
+    increaseTotalOfMoves,
   } = useContext(GameContext) as GameContextState
 
   useEffect(() => {
     if (selectedCards.length === 2) {
+      increaseTotalOfMoves()
+
       setTimeout(() => {
         if (selectedCards[0].name === selectedCards[1].name) {
           changeFoundStatusCards(randomCards, selectedCards)
