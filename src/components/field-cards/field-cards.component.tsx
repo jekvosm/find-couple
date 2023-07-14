@@ -5,6 +5,7 @@ import Card from '../card/card.component'
 import styles from './field-cards.module.css'
 
 import { GameContext, GameContextState } from '../../context/game-context'
+import StartScreen from '../start-screen/start-screen.component'
 
 const FieldCards = () => {
   const {
@@ -36,6 +37,7 @@ const FieldCards = () => {
       {randomCards.map(card => {
         return <Card key={card.id} cardInfo={card} />
       })}
+      <StartScreen />
     </div>
   )
 }

@@ -1,7 +1,10 @@
+import styles from './results.module.css'
+
 const Results = () => {
   return (
-    <div>
-      <p>Результыты:</p>
+    <div className={styles.results}>
+      <span>Результыты:</span>
+      <span>Нажмите на старт, чтобы начать игру</span>
     </div>
   )
 }

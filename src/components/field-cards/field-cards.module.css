@@ -1,7 +1,14 @@
 .content__fieldCards {
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(6, minmax(min-content, max-content));
   grid-auto-flow: row;
   grid-row-gap: 0.5rem;
   grid-column-gap: 1rem;
+
+  padding: 1rem;
+
+  border: 2px solid black;
+  border-radius: 0.5rem;
 }
