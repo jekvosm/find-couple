@@ -31,13 +31,13 @@ const FieldCards = () => {
           rotateCardsBack(randomCards)
         }
         setSelectedCards([])
-      }, 500)
+      }, 1500)
     }
   }, [selectedCards])
 
   useEffect(() => {
     if (totalFoundCoupleCard === 1) {
-      setTimeout(() => stopGame(), 500)
+      setTimeout(() => stopGame(), 1500)
     }
   }, [totalFoundCoupleCard])
 

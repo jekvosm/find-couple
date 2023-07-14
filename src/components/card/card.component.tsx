@@ -24,15 +24,15 @@ const Card = ({ cardInfo }: CardProps) => {
   return (
     <div className={`${styles.card} ${isFound ? styles.isFound : ''}`}>
       <div
-        onClick={() => cardClickHandler(cardInfo)}
-        className={`${styles.card__front} ${isRotated ? styles.isRotated : ''}`}
+        className={`${styles.card__front} ${isRotated ? '' : styles.isRotated}`}
       >
-        <p>{name}</p>
+        <p className={styles.card__name}>{name}</p>
       </div>
       <div
-        className={`${styles.card__back} ${isRotated ? styles.notRotated : ''}`}
+        onClick={() => cardClickHandler(cardInfo)}
+        className={`${styles.card__back} ${isRotated ? '' : styles.notRotated}`}
       >
-        <p>?</p>
+        <p className={styles.card__name}>?</p>
       </div>
     </div>
   )
