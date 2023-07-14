@@ -6,7 +6,6 @@ import { rotateCard } from '../../utils/utils'
 
 type CardProps = {
   cardInfo: ICard
-  // clickHandler: (card: ICard) => void
 }
 
 const Card = ({ cardInfo }: CardProps) => {

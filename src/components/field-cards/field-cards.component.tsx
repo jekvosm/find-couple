@@ -1,24 +1,27 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 
 import Card from '../card/card.component'
 
 import styles from './field-cards.module.css'
 
-import { changeFoundStatus, rotateCardsBack } from '../../utils/utils'
-
 import { GameContext, GameContextState } from '../../context/game-context'
 
 const FieldCards = () => {
-  const { randomCards, setRandomCards, selectedCards, setSelectedCards } =
-    useContext(GameContext) as GameContextState
+  const {
+    randomCards,
+    selectedCards,
+    setSelectedCards,
+    changeFoundStatusCards,
+    rotateCardsBack,
+  } = useContext(GameContext) as GameContextState
 
   useEffect(() => {
     if (selectedCards.length === 2) {
       setTimeout(() => {
         if (selectedCards[0].name === selectedCards[1].name) {
-          setRandomCards(changeFoundStatus(randomCards, selectedCards))
+          changeFoundStatusCards(randomCards, selectedCards)
         } else {
-          setRandomCards(rotateCardsBack(randomCards))
+          rotateCardsBack(randomCards)
         }
         setSelectedCards([])
       }, 500)
