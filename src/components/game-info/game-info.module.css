@@ -4,3 +4,16 @@
   align-items: center;
   gap: 2rem;
 }
+
+.stop_button {
+  font-size: 1.2rem;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: rgb(119, 67, 74);
+}
+
+.stop_button:hover {
+  background-color: rgb(124, 57, 66);
+}

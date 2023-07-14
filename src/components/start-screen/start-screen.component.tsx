@@ -13,6 +13,7 @@ const StartScreen = () => {
 
   return (
     <div
+      data-testid='start-screen'
       className={`${styles.start__screen} ${
         isPlaying || isFinished ? styles.hidden : ''
       }`}

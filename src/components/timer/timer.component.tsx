@@ -28,7 +28,7 @@ const Timer = () => {
         })
       }, 1000)
     } else {
-      if (isFinished) {
+      if (isFinished && totalOfMoves === 18) {
         addToResults({
           id: new Date().toString(),
           seconds,

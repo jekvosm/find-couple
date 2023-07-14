@@ -15,12 +15,6 @@ export const createRandomCards = (cards: ICard[]): ICard[] => {
   return randomCards
 }
 
-export const rotateCard = (cards: ICard[], cardId: number): ICard[] => {
-  return cards.map(card =>
-    card.id === cardId ? { ...card, isRotated: true } : card
-  )
-}
-
 export const changeFoundStatus = (
   cards: ICard[],
   cardsForChange: ICard[]

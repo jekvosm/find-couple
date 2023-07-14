@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { ICard } from '../../interfaces/card'
 import styles from './card.module.css'
 import { GameContext, GameContextState } from '../../context/game-context'
-import { rotateCard } from '../../utils/utils'
 
 type CardProps = {
   cardInfo: ICard
@@ -10,14 +9,14 @@ type CardProps = {
 
 const Card = ({ cardInfo }: CardProps) => {
   const { name, isRotated, isFound } = cardInfo
-  const { randomCards, setRandomCards, selectedCards, setSelectedCards } =
+  const { randomCards, rotateCard, selectedCards, setSelectedCards } =
     useContext(GameContext) as GameContextState
 
   const cardClickHandler = (card: ICard): void => {
     const existCard = selectedCards.find(selCard => selCard.id === card.id)
     if (selectedCards.length < 2 && !existCard) {
       setSelectedCards([...selectedCards, card])
-      setRandomCards(rotateCard(randomCards, card.id))
+      rotateCard(randomCards, card.id)
     }
   }
 
@@ -29,6 +28,7 @@ const Card = ({ cardInfo }: CardProps) => {
         <p className={styles.card__name}>{name}</p>
       </div>
       <div
+        data-testid='card-front'
         onClick={() => cardClickHandler(cardInfo)}
         className={`${styles.card__back} ${isRotated ? '' : styles.notRotated}`}
       >

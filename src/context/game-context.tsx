@@ -24,6 +24,7 @@ export type GameContextState = {
   restartGame: () => void
   changeResetTime: () => void
   addToResults: (result: IResult) => void
+  rotateCard: (cards: ICard[], cardId: number) => void
 }
 
 export const GameContext = createContext<GameContextState | null>(null)
@@ -55,6 +56,14 @@ export const GameProvider = ({
 
   const rotateCardsBack = (cards: ICard[]) => {
     const newCards = cards.map(card => ({ ...card, isRotated: false }))
+    setRandomCards(newCards)
+  }
+
+  const rotateCard = (cards: ICard[], cardId: number) => {
+    const newCards = cards.map(card =>
+      card.id === cardId ? { ...card, isRotated: true } : card
+    )
+
     setRandomCards(newCards)
   }
 
@@ -112,6 +121,7 @@ export const GameProvider = ({
     changeResetTime,
     results,
     addToResults,
+    rotateCard,
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>

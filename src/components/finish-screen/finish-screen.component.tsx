@@ -13,6 +13,7 @@ const FinishScreen = () => {
 
   return (
     <div
+      data-testid='finish-screen'
       className={`${styles.finish__screen} ${isFinished ? '' : styles.hidden}`}
     >
       <h2 className={styles.start__screen_title}>Играть ещё раз!</h2>
