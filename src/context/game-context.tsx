@@ -14,6 +14,9 @@ export type GameContextState = {
   rotateCardsBack: (cards: ICard[]) => void
   totalOfmoves: number
   increaseTotalOfMoves: () => void
+  isPlaying: boolean
+  startGame: () => void
+  stopGame: () => void
 }
 
 export const GameContext = createContext<GameContextState | null>(null)
@@ -26,6 +29,7 @@ export const GameProvider = ({
   const [randomCards, setRandomCards] = useState<ICard[]>([])
   const [selectedCards, setSelectedCards] = useState<ICard[]>([])
   const [totalOfmoves, setCount] = useState(0)
+  const [isPlaying, setIsPlayng] = useState(false)
 
   useEffect(() => {
     const cards = createRandomCards(CARDS)
@@ -46,6 +50,14 @@ export const GameProvider = ({
     setCount(prev => prev + 1)
   }
 
+  const startGame = () => {
+    setIsPlayng(true)
+  }
+
+  const stopGame = () => {
+    setIsPlayng(false)
+  }
+
   const value = {
     randomCards,
     setRandomCards,
@@ -55,6 +67,9 @@ export const GameProvider = ({
     rotateCardsBack,
     totalOfmoves,
     increaseTotalOfMoves,
+    isPlaying,
+    startGame,
+    stopGame,
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>
