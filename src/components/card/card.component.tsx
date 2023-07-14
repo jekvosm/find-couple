@@ -3,12 +3,29 @@ import styles from './card.module.css'
 
 type CardProps = {
   cardInfo: ICard
+  clickHandler: (card: ICard) => void
 }
 
-const Card = ({ cardInfo }: CardProps) => {
+const Card = ({ cardInfo, clickHandler }: CardProps) => {
+  const { name, isRotated, isFound } = cardInfo
+
   return (
-    <div className={styles.card}>
-      <p>{cardInfo.name}</p>
+    <div
+      onClick={() => {
+        clickHandler(cardInfo)
+      }}
+      className={`${styles.card} ${isFound ? styles.isFound : ''}`}
+    >
+      <div
+        className={`${styles.card__front} ${isRotated ? styles.isRotated : ''}`}
+      >
+        <p>{name}</p>
+      </div>
+      <div
+        className={`${styles.card__back} ${isRotated ? styles.notRotated : ''}`}
+      >
+        <p>?</p>
+      </div>
     </div>
   )
 }
