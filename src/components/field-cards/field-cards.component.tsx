@@ -37,7 +37,7 @@ const FieldCards = () => {
 
   useEffect(() => {
     if (totalFoundCoupleCard === 18) {
-      setTimeout(() => stopGame(), 1500)
+      setTimeout(() => stopGame(), 500)
     }
   }, [totalFoundCoupleCard])
 

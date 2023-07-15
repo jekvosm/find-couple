@@ -7,6 +7,7 @@ const Timer = () => {
     isTimeReset,
     changeResetTime,
     addToResults,
+    totalFoundCoupleCard,
     totalOfMoves,
     isFinished,
   } = useContext(GameContext) as GameContextState
@@ -15,7 +16,7 @@ const Timer = () => {
   const [minutes, setMinutes] = useState(0)
 
   useEffect(() => {
-    let interval: number | undefined
+    let interval: ReturnType<typeof setInterval>
     if (isPlaying) {
       changeResetTime()
       interval = setInterval(() => {
@@ -28,7 +29,7 @@ const Timer = () => {
         })
       }, 1000)
     } else {
-      if (isFinished && totalOfMoves === 18) {
+      if (isFinished && totalFoundCoupleCard === 18) {
         addToResults({
           id: new Date().toString(),
           seconds,
@@ -36,7 +37,6 @@ const Timer = () => {
           totalOfMoves,
         })
       }
-      clearInterval(interval)
     }
     return () => clearInterval(interval)
   }, [isPlaying, seconds])
