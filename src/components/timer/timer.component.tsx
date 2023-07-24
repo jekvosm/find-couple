@@ -1,31 +1,30 @@
-import { useContext, useEffect, useState } from 'react'
-import { GameContext, GameContextState } from '../../context/game-context'
+import { useEffect, useState } from 'react'
+import { IResult } from '../../interfaces/card'
 
-const Timer = () => {
-  const {
-    isPlaying,
-    isTimeReset,
-    changeResetTime,
-    addToResults,
-    totalFoundCoupleCard,
-    totalOfMoves,
-    isFinished,
-  } = useContext(GameContext) as GameContextState
+type TimerProps = {
+  isPlaying: boolean
+  isFinished: boolean
+  addToResults: (result: IResult) => void
+  totalFoundCoupleCard: number
+  totalOfMoves: number
+}
 
+const Timer = ({
+  isPlaying,
+  isFinished,
+  addToResults,
+  totalFoundCoupleCard,
+  totalOfMoves,
+}: TimerProps) => {
   const [seconds, setSeconds] = useState(0)
   const [minutes, setMinutes] = useState(0)
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>
     if (isPlaying) {
-      changeResetTime()
       interval = setInterval(() => {
         setSeconds(seconds => {
-          if (seconds < 59) {
-            return seconds + 1
-          } else {
-            return 0
-          }
+          return seconds < 59 ? seconds + 1 : 0
         })
       }, 1000)
     } else {
@@ -39,7 +38,7 @@ const Timer = () => {
       }
     }
     return () => clearInterval(interval)
-  }, [isPlaying, seconds])
+  }, [isPlaying, seconds, isFinished])
 
   useEffect(() => {
     if (seconds === 59) {
@@ -48,9 +47,11 @@ const Timer = () => {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(0)
-    setMinutes(0)
-  }, [isTimeReset])
+    if (isPlaying && !isFinished) {
+      setSeconds(0)
+      setMinutes(0)
+    }
+  }, [isPlaying, isFinished])
 
   return (
     <p>

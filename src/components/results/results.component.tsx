@@ -1,12 +1,14 @@
-import { useContext } from 'react'
 import styles from './results.module.css'
-import { GameContext, GameContextState } from '../../context/game-context'
+import { IResult } from '../../interfaces/card'
 
-const Results = () => {
-  const { results } = useContext(GameContext) as GameContextState
+type ResultsProps = {
+  results: IResult[]
+}
+
+const Results = ({ results }: ResultsProps) => {
   return (
     <div className={styles.results}>
-      <span>Результыты:</span>
+      <span>Результаты:</span>
       {!results.length ? (
         <span>Нажмите на старт!</span>
       ) : (

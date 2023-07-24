@@ -1,53 +1,36 @@
-import { useContext, useEffect } from 'react'
-
 import Card from '../card/card.component'
 
 import styles from './field-cards.module.css'
 
-import { GameContext, GameContextState } from '../../context/game-context'
 import StartScreen from '../start-screen/start-screen.component'
 import FinishScreen from '../finish-screen/finish-screen.component'
 
-const FieldCards = () => {
-  const {
-    randomCards,
-    selectedCards,
-    setSelectedCards,
-    changeFoundStatusCards,
-    rotateCardsBack,
-    increaseTotalOfMoves,
-    totalFoundCoupleCard,
-    stopGame,
-  } = useContext(GameContext) as GameContextState
+import { ICard } from '../../interfaces/card'
 
-  useEffect(() => {
-    if (selectedCards.length === 2) {
-      increaseTotalOfMoves()
+type FieldCardsProps = {
+  startGame: () => void
+  isPlaying: boolean
+  isFinished: boolean
+  restartGame: () => void
+  randomCards: ICard[]
+  rotateCard: (cards: ICard) => void
+}
 
-      setTimeout(() => {
-        if (selectedCards[0].name === selectedCards[1].name) {
-          changeFoundStatusCards(randomCards, selectedCards)
-        } else {
-          rotateCardsBack(randomCards)
-        }
-        setSelectedCards([])
-      }, 1500)
-    }
-  }, [selectedCards])
-
-  useEffect(() => {
-    if (totalFoundCoupleCard === 18) {
-      setTimeout(() => stopGame(), 500)
-    }
-  }, [totalFoundCoupleCard])
-
+const FieldCards = ({
+  startGame,
+  isPlaying,
+  isFinished,
+  restartGame,
+  randomCards,
+  rotateCard,
+}: FieldCardsProps) => {
   return (
     <div className={styles.content__fieldCards}>
       {randomCards.map(card => {
-        return <Card key={card.id} cardInfo={card} />
+        return <Card key={card.id} cardInfo={card} rotateCard={rotateCard} />
       })}
-      <StartScreen />
-      <FinishScreen />
+      <StartScreen {...{ startGame, isPlaying, isFinished }} />
+      <FinishScreen isFinished={isFinished} restartGame={restartGame} />
     </div>
   )
 }

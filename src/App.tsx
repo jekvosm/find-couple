@@ -1,6 +1,5 @@
 import styles from './App.module.css'
-import FieldCards from './components/field-cards/field-cards.component'
-import GameInfo from './components/game-info/game-info.component'
+import Game from './components/game/game.component'
 
 const App = () => {
   return (
@@ -9,8 +8,7 @@ const App = () => {
         <h1 className={styles.header_title}>Найди пару</h1>
       </header>
       <main className={styles.app__main}>
-        <FieldCards />
-        <GameInfo />
+        <Game />
       </main>
     </div>
   )

@@ -1,16 +1,21 @@
-import { useContext } from 'react'
-
-import { GameContext, GameContextState } from '../../context/game-context'
-
 import styles from './current-game.module.css'
 import Timer from '../timer/timer.component'
+import { IResult } from '../../interfaces/card'
 
-const CurrentGame = () => {
-  const { totalOfMoves } = useContext(GameContext) as GameContextState
+type CurrentGameProps = {
+  isPlaying: boolean
+  isFinished: boolean
+  totalOfMoves: number
+  totalFoundCoupleCard: number
+  addToResults: (result: IResult) => void
+}
+
+const CurrentGame = (currentGameProps: CurrentGameProps) => {
+  const { totalOfMoves } = currentGameProps
 
   return (
     <div className={styles.current_game}>
-      <Timer />
+      <Timer {...currentGameProps} />
       <p>
         Число ходов: <span>{totalOfMoves}</span>
       </p>
